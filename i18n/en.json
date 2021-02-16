@@ -1,0 +1,199 @@
+{
+  "HOME": {
+    "HEADER": "Nearby Prayers",
+    "EMPTY": "No prayer found so far :("
+  },
+  "FILTER": {
+    "HEADER": "Filter",
+    "PRAYERS": "Prayers",
+    "SORTBY": "Sort By",
+    "DISTANCE": "Distance",
+    "PARTICIPANTS": "Participants",
+    "TIME": "Time",
+    "MIN_PARTICIPANTS": "Minimum Participants\n",
+    "PERSON": "person",
+    "PEOPLE": "people",
+    "SAME_GENDER": "Same gender",
+    "CHECKBOX_DESC": "If checked, you will only see invitations organized by females.",
+    "BUTTON": "SAVE"
+  },
+  "PRAYER_DETAILS": {
+    "HEADER": "{{prayer}} Prayer",
+    "JOIN": "Join",
+    "JOINED": "Joined",
+    "CANCEL": "Cancel",
+    "ENDED": "Ended",
+    "DESCRIPTION": "Description",
+    "ORGANIZER": "Organizer",
+    "PARTICIPANTS": "Participants",
+    "GUESTS": "Guests",
+    "CANCEL_PRAYER": "Cancel Invitation",
+    "CANCEL_PRAYER_CONFIRM": "Are you sure to cancel this invitation?",
+    "NO": "No",
+    "YES": "Yes",
+    "OPTIONS": ["View on Google Maps", "Report", "Cancel"]
+  },
+  "INVITATION": {
+    "HISTORY_PRAYERS": "Past Prayers",
+    "QUERY": "Search this area",
+    "CONFIRM": "Confirm",
+    "CANCEL": "Cancel",
+    "HEADER": "Invite Prayer",
+    "PRAYER": "Prayer",
+    "CURRENT_PARTICIPANTS": "Initial Participants",
+    "DESCRIPTION": "Description",
+    "PLACEHOLDER": "Briefly describe the location so that people may find it easily",
+    "DATE": "Date",
+    "TIME": "Time",
+    "CHOOSE_DATE": "Choose Date",
+    "CHOOSE_TIME": "Choose Time",
+    "INVITE": "INVITE",
+    "INVITE_HERE": "INVITE HERE",
+    "ERRORS": ["Prayer time cannot be before now"],
+    "NOTIFICATION": {
+      "TITLE": "Notification Area",
+      "DESC": "Drag the marker to the area you would like to receive new prayer notifications from",
+      "CONFIRM": "Confirm",
+      "CANCEL": "Cancel"
+    }
+  },
+  "PROFILE": {
+    "HEADER": "Profile",
+    "PRAYERS_INVITED": "PRAYERS\nINVITED",
+    "PRAYERS_PARTICIPATED": "PRAYERS\nPARTICIPATED",
+    "EMPTY": "No prayer invited so far :(",
+    "LANGUAGE_HEADER": "Choose Language",
+    "CHANGE_PASSWORD": "Change Password",
+    "LOGOUT": "Logout",
+    "DELETE_ACCOUNT": "Delete Account",
+    "OPTIONS": {
+      "PRIVACY": "Privacy Policy",
+      "FAQ": "FAQ",
+      "ABOUT": "About",
+      "CONTACT": "Contact",
+      "SUPPORT": "Support Us",
+      "LANGUAGE": "Language Preference",
+      "LOGOUT": "Logout",
+      "CANCEL": "Cancel"
+    }
+  },
+  "TABS": {
+    "HOME": "Home",
+    "MAP": "Map",
+    "PRAYER_TIMES": "Prayer Times",
+    "NOTIFICATION": "Notification",
+    "PROFILE": "Profile",
+    "BACK": "Back"
+  },
+  "SIGN": {
+    "WELCOME": "Welcome",
+    "PROCEED": "Sign in to proceed",
+    "LOGIN": "Login",
+    "FORGOT_PWD": "Forgot Password",
+    "NOT_HAVE": "Don't have an account yet?",
+    "SIGNUP_NOW": "Sign up now",
+    "SIGNUP": "Sign Up",
+    "CONNECT": "Or connect with",
+    "CREATE_ACCOUNT": "Create Account",
+    "FULL_NAME": "Full Name",
+    "EMAIL": "Email Address",
+    "PASSWORD": "Password",
+    "CONFIRM": "Confirm Password",
+    "FORGOT": {
+      "HEADER": "Forgot Your Password?",
+      "DESCRIPTION": "Please enter the email that you have used to register. We will send you an email to reset your password again!"
+    },
+    "RESET": {
+      "HEADER": "Reset Your Password",
+      "DESCRIPTION": "An email has been sent to your inbox. Follow the necessary steps to reset your password for your account."
+    },
+    "VERIFY": {
+      "HEADER": "Verify Your Email Address",
+      "DESCRIPTION": "A verification email has been sent to your inbox. Please follow the necessary steps to start your journey!"
+    },
+    "BACK_TO_LOGIN": "BACK TO LOGIN",
+    "SUBMIT": "SUBMIT",
+    "GOOGLE_LOGIN": "Continue With Google",
+    "FACEBOOK_LOGIN": "Continue With Facebook",
+    "CHOOSE_GENDER": "Please choose your gender",
+    "ERROR": [
+      "Email or password is missing",
+      "You have one or more fields missing",
+      "Two passwords do not match",
+      "OK"
+    ]
+  },
+  "NOTIFICATIONS": {
+    "TIME_DIFF": {
+      "MIN_AGO": "{{count}} min ago",
+      "MIN_AGO_plural": "{{count}} min ago",
+      "HOUR_AGO": "{{count}} hr ago",
+      "HOUR_AGO_plural": "{{count}} hr ago",
+      "DAY_AGO": "{{count}} day ago",
+      "DAY_AGO_plural": "{{count}} days ago",
+      "MONTH_AGO": "{{count}} month ago",
+      "MONTH_AGO_plural": "{{count}} months ago",
+      "YEAR_AGO": "{{count}} year ago",
+      "YEAR_AGO_plural": "{{count}} years ago"
+    },
+    "TYPES": {
+      "JOIN": "{{user}} is joining to your {{prayer}} prayer."
+    }
+  },
+  "PRAYER_TIME": {
+    "HEADER": "Prayer Times",
+    "SUNRISE": "Sunrise",
+    "BEGINS_AFTER": "Begins in {{time}}",
+    "GETTING_LATEST": "Getting latest prayer times..."
+  },
+  "GET_NOTIFIED": {
+    "TITLE": "Get Notified",
+    "DESC": "Please pick an area where you would like to receive notifications from. A notification will be sent to your device whenever there is a new prayer in the selected area.",
+    "CONTINUE": "Continue",
+    "NO_THANKS": "No Thanks"
+  },
+  "REPORT": {
+    "TITLE": "Report a problem",
+    "DESC": "Help us understand the issue with this prayer.",
+    "PLACEHOLDER": "Any extra information you would like to add",
+    "SUBMIT": "Submit",
+    "CATEGORY": [
+      "This is a spam",
+      "The information given is not true",
+      "This contains threatening messages",
+      "Other"
+    ],
+    "ERROR": "Something went wrong! Try again later"
+  },
+  "COMMON": {
+    "PRAYERS": {
+      "fajr": "Fajr",
+      "dhuhr": "Dhuhr",
+      "asr": "Asr",
+      "maghrib": "Maghrib",
+      "isha": "Isha",
+      "jumuah": "Jumuah",
+      "janazah": "Janazah"
+    },
+    "PRAYER_CARD": {
+      "INVITED": "invited by {{name}}",
+      "PARTICIPATING": "{{num}} participating"
+    },
+    "GENDER": {
+      "LABEL": "Gender",
+      "MALE": "Male",
+      "FEMALE": "Female",
+      "CONFIRM": "Confirm"
+    },
+    "LOADING": "Loading...",
+    "DAY": {
+      "TODAY": "Today",
+      "YESTERDAY": "Yesterday",
+      "TOMORROW": "Tomorrow"
+    },
+    "DISTANCE": {
+      "KM": "km",
+      "M": "m"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "Wahdapp",
+    "slug": "wahdapp",
+    "privacy": "public",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "0.0.3",
+    "orientation": "portrait",
+    "icon": "./assets/images/logo.png",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "description": "",
+    "android": {
+      "versionCode": 380000003
+    },
+    "ios": {
+      "buildNumber": "0.0.3"
+    }
+  }
+}
