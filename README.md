@@ -17,7 +17,7 @@
     <a href="https://opensource.org/licenses/MIT" target="_blank"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-yellow.svg"></a>
     <br />
     <br />
-    <a href="">Google Play</a>
+    <a href="https://play.google.com/store/apps/details?id=com.aboudicheng.wahdapp" target="_blank" rel="noreferrer">Google Play</a>
     ·
     <a href="">App Store</a>
     <br />
