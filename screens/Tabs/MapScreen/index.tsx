@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MapView, { MapEvent, Marker, Circle } from 'react-native-maps';
-import { StyleSheet, Image, TouchableOpacity, View, TouchableWithoutFeedback } from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  View,
+  TouchableWithoutFeedback,
+  Platform,
+} from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Text, LoaderWithoutOverlay, RoundButton, BoldText } from '@/components';
 import dayjs from 'dayjs';
@@ -280,7 +287,13 @@ export default function MapScreen({ navigation }: Props) {
           backgroundColor="#fff"
           borderRadius={25}
           onPress={queryArea}
-          containerStyle={{ position: 'absolute', top: 35, left: 0, right: 0, zIndex: 5 }}
+          containerStyle={{
+            position: 'absolute',
+            top: Platform.OS === 'ios' ? 55 : 35,
+            left: 0,
+            right: 0,
+            zIndex: 5,
+          }}
         />
       )}
       <MapView
@@ -384,7 +397,7 @@ export default function MapScreen({ navigation }: Props) {
             <BoldText style={styles.areaSelectBannerText}>{t('NOTIFICATION.TITLE')}</BoldText>
             <Text style={styles.areaSelectBannerDesc}>{t('NOTIFICATION.DESC')}</Text>
           </View>
-          <View style={{ ...styles.buttonWrapper, bottom: 80 }}>
+          <View style={{ ...styles.buttonWrapper, bottom: Platform.OS === 'ios' ? 90 : 80 }}>
             <RoundButton
               onPress={confirmNotificationRange}
               style={{ width: '100%' }}
@@ -394,7 +407,7 @@ export default function MapScreen({ navigation }: Props) {
             </RoundButton>
           </View>
 
-          <View style={{ ...styles.buttonWrapper, bottom: 15 }}>
+          <View style={{ ...styles.buttonWrapper, bottom: Platform.OS === 'ios' ? 25 : 15 }}>
             <RoundButton
               style={{ width: '100%' }}
               backgroundColor="#fff"
@@ -456,7 +469,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 60,
     position: 'absolute',
-    bottom: 10,
+    bottom: Platform.OS === 'ios' ? 20 : 10,
     right: 10,
     height: 60,
     backgroundColor: colors.secondary,
@@ -467,7 +480,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 60,
     position: 'absolute',
-    bottom: 10,
+    bottom: Platform.OS === 'ios' ? 20 : 10,
     right: 10,
     height: 60,
     backgroundColor: '#fff',
@@ -478,7 +491,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 60,
     position: 'absolute',
-    bottom: 80,
+    bottom: Platform.OS === 'ios' ? 90 : 80,
     right: 10,
     height: 60,
     backgroundColor: '#fff',
@@ -521,7 +534,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     paddingHorizontal: 15,
-    paddingTop: 35,
+    paddingTop: Platform.OS === 'ios' ? 55 : 35,
     paddingBottom: 25,
   },
   areaSelectBannerText: {

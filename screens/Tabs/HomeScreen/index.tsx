@@ -145,7 +145,7 @@ export default function HomeScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Platform.OS === 'ios' ? 20 : 24,
+    paddingTop: Platform.OS === 'ios' ? 28 : 24,
     flex: 1,
     backgroundColor: '#F6F6F6',
   },

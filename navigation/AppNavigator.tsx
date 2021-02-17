@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AsyncStorage, Vibration } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { getLatLong } from '../helpers/geo';
@@ -16,6 +16,7 @@ import { getPrayerByID } from '@/services/prayer';
 import i18n from 'i18next';
 import { formatLanguage } from '@/helpers/dateFormat';
 import { Notification } from 'expo/build/Notifications/Notifications.types';
+// import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 
 export default ({ user }) => {
   const [userDataFetched, setUserDataFetched] = useState(false);
@@ -100,8 +101,10 @@ export default ({ user }) => {
   }
 
   return (
+    // <SafeAreaProvider initialMetrics={initialWindowMetrics}>
     <NavigationContainer>
       <MainTabNavigator />
     </NavigationContainer>
+    // </SafeAreaProvider>
   );
 };

@@ -9,6 +9,7 @@ import {
   ScrollView,
   TextInput,
   Linking,
+  Platform,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSnackbar } from '@/contexts/snackbar';
@@ -312,7 +313,7 @@ export default function ProfileScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   screenHeader: {
-    marginTop: 10,
+    marginTop: Platform.OS === 'ios' ? 28 : 24,
     height: 52,
     flexDirection: 'row',
     justifyContent: 'flex-end',

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, ImageBackground, Dimensions } from 'react-native';
+import { View, StyleSheet, ScrollView, ImageBackground, Dimensions, Platform } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Location from 'expo-location';
 import { BoldText, Text, LoaderWithoutOverlay } from '@/components';
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   header: {
-    paddingTop: 24,
+    paddingTop: Platform.OS === 'ios' ? 28 : 24,
     marginVertical: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
