@@ -88,7 +88,7 @@ export default function MapScreen({ navigation }: Props) {
     if (userPosition && mapRef.current) {
       animateToRegion(userPosition);
     }
-  }, [userPosition, mapRef]);
+  }, [mapRef]);
 
   useEffect(() => {
     if (isChoosingRange && mapRef.current) {
