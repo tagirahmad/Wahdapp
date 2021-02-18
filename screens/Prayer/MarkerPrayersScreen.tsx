@@ -8,6 +8,7 @@ import { RootStackParamList } from '@/types';
 import { RouteProp } from '@react-navigation/native';
 import { logEvent } from 'expo-firebase-analytics';
 import useLogScreenView from '@/hooks/useLogScreenView';
+import { useAuthStatus } from '@/hooks/auth';
 
 type MarkerPrayersNavigationProp = StackNavigationProp<RootStackParamList, 'MarkerPrayers'>;
 
@@ -21,6 +22,7 @@ type Props = {
 export default function MarkerPrayersScreen({ navigation, route }: Props) {
   useLogScreenView('marker_prayers');
   const { nearbyPrayers, handleConfirm } = route.params;
+  const isAuth = useAuthStatus();
   const { t } = useTranslation(['INVITATION']);
 
   function handleInvite() {
@@ -40,15 +42,17 @@ export default function MarkerPrayersScreen({ navigation, route }: Props) {
           keyExtractor={(item) => item.id}
         />
       </View>
-      <Animatable.View animation="pulse" iterationCount="infinite" style={styles.buttonWrapper}>
-        <RoundButton
-          onPress={handleInvite}
-          style={{ width: '100%' }}
-          touchableStyle={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}
-        >
-          {t('INVITE_HERE')}
-        </RoundButton>
-      </Animatable.View>
+      {isAuth && (
+        <Animatable.View animation="pulse" iterationCount="infinite" style={styles.buttonWrapper}>
+          <RoundButton
+            onPress={handleInvite}
+            style={{ width: '100%' }}
+            touchableStyle={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}
+          >
+            {t('INVITE_HERE')}
+          </RoundButton>
+        </Animatable.View>
+      )}
     </View>
   );
 }

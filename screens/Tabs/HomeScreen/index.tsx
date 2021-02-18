@@ -13,6 +13,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '@/types';
 import { useFilter, useLocation, useNotification, useFeedPrayers } from '@/hooks/redux';
 import useLogScreenView from '@/hooks/useLogScreenView';
+import { auth } from '@/firebase';
+import { useAuthStatus } from '@/hooks/auth';
 
 const PAGE_SIZE = 5;
 
@@ -24,6 +26,7 @@ type Props = {
 
 export default function HomeScreen({ navigation }: Props) {
   useLogScreenView('home');
+  const isAuth = useAuthStatus();
   const { t } = useTranslation(['HOME']);
   const location = useLocation();
   const filter = useFilter();
@@ -65,6 +68,7 @@ export default function HomeScreen({ navigation }: Props) {
         lat: location.latitude,
         pageNumber: refresh ? 0 : currentPage,
         sortType: filter.sortBy,
+        isAuth,
       });
 
       // Stop fetching more
@@ -84,6 +88,8 @@ export default function HomeScreen({ navigation }: Props) {
         setCurrentPage((prev) => prev + 1);
       }
     } catch (e) {
+      setHasMore(false);
+      dispatch({ type: 'SET_FEED', payload: [] });
       console.log(e);
     }
   }
@@ -92,9 +98,14 @@ export default function HomeScreen({ navigation }: Props) {
     <View style={styles.container}>
       <View style={styles.header}>
         <BoldText style={styles.titleStyle}>{t('HEADER')}</BoldText>
-        <TouchableOpacity style={{ marginRight: 25 }} onPress={() => navigation.navigate('Filter')}>
-          <Feather name="sliders" size={24} color={colors.primary} />
-        </TouchableOpacity>
+        {isAuth && (
+          <TouchableOpacity
+            style={{ marginRight: 25 }}
+            onPress={() => navigation.navigate('Filter')}
+          >
+            <Feather name="sliders" size={24} color={colors.primary} />
+          </TouchableOpacity>
+        )}
       </View>
       <View style={{ ...styles.prayerListWrapper, height: prayers.length ? null : '100%' }}>
         {isFetching ? (

@@ -32,6 +32,7 @@ import { useDispatch } from 'react-redux';
 import { cancelPrayer } from '@/actions/prayers';
 import { addParticipatedAmount, minusInvitedAmount, minusParticipatedAmount } from '@/actions/user';
 import useLogScreenView from '@/hooks/useLogScreenView';
+import { useAuthStatus } from '@/hooks/auth';
 
 type PrayerDetailScreenNavigationProp = StackNavigationProp<RootStackParamList, 'PrayerDetail'>;
 
@@ -75,6 +76,7 @@ function joinReducer(state: ReducerState, action: Actions) {
 
 export default function PrayerDetailScreen({ route, navigation }: Props) {
   useLogScreenView('prayer_detail');
+  const isAuth = useAuthStatus();
   const { t } = useTranslation(['PRAYER_DETAILS', 'COMMON']);
   const dispatch = useDispatch();
   const { showActionSheetWithOptions } = useActionSheet();
@@ -99,7 +101,7 @@ export default function PrayerDetailScreen({ route, navigation }: Props) {
 
   const [joinState, joinDispatch] = useOptimisticReducer(joinReducer, {
     currentParticipants: participants, // in formatted form
-    isJoined: participants.map((p) => p.id).includes(auth.currentUser.uid) ? true : false,
+    isJoined: participants.map((p) => p.id).includes(auth.currentUser?.uid) ? true : false,
   });
 
   const { isJoined, currentParticipants } = joinState;
@@ -136,7 +138,7 @@ export default function PrayerDetailScreen({ route, navigation }: Props) {
       // synchronize with redux state
       dispatch({
         type: 'JOIN_PRAYER',
-        payload: { prayerID: id, userID: auth.currentUser.uid, user },
+        payload: { prayerID: id, userID: auth.currentUser?.uid, user },
       });
 
       joinDispatch({
@@ -156,18 +158,18 @@ export default function PrayerDetailScreen({ route, navigation }: Props) {
             joinDispatch({ type: 'FALLBACK', payload: prevState });
             dispatch({
               type: 'CANCEL',
-              payload: { prayerID: id, userID: auth.currentUser.uid },
+              payload: { prayerID: id, userID: auth.currentUser?.uid },
             });
           },
           queue: 'join',
         },
-        payload: { ...user, id: auth.currentUser.uid },
+        payload: { ...user, id: auth.currentUser?.uid },
       });
     } else {
       // synchronize with redux state
       dispatch({
         type: 'LEAVE_PRAYER',
-        payload: { prayerID: id, userID: auth.currentUser.uid },
+        payload: { prayerID: id, userID: auth.currentUser?.uid },
       });
 
       joinDispatch({
@@ -187,12 +189,12 @@ export default function PrayerDetailScreen({ route, navigation }: Props) {
             joinDispatch({ type: 'FALLBACK', payload: prevState });
             dispatch({
               type: 'JOIN',
-              payload: { prayerID: id, userID: auth.currentUser.uid, user },
+              payload: { prayerID: id, userID: auth.currentUser?.uid, user },
             });
           },
           queue: 'join',
         },
-        id: auth.currentUser.uid,
+        id: auth.currentUser?.uid,
       });
     }
   }
@@ -278,34 +280,35 @@ export default function PrayerDetailScreen({ route, navigation }: Props) {
             <Text style={styles.sectionSubHeader}>{formatDistance(distance, t)}</Text>
           </View>
 
-          {auth.currentUser.uid === inviter.id ? (
-            <TouchableWithoutFeedback onPress={handleDeletePrayer}>
-              <View style={[styles.button, { backgroundColor: colors.error }]}>
-                <Text style={{ color: '#fff' }}>{t('CANCEL')}</Text>
+          {isAuth &&
+            (auth.currentUser.uid === inviter.id ? (
+              <TouchableWithoutFeedback onPress={handleDeletePrayer}>
+                <View style={[styles.button, { backgroundColor: colors.error }]}>
+                  <Text style={{ color: '#fff' }}>{t('CANCEL')}</Text>
+                </View>
+              </TouchableWithoutFeedback>
+            ) : isExpired ? (
+              <View style={[styles.button, { backgroundColor: '#ddd' }]}>
+                <Text style={{ color: '#fff' }}>{t('ENDED')}</Text>
               </View>
-            </TouchableWithoutFeedback>
-          ) : isExpired ? (
-            <View style={[styles.button, { backgroundColor: '#ddd' }]}>
-              <Text style={{ color: '#fff' }}>{t('ENDED')}</Text>
-            </View>
-          ) : (
-            <TouchableWithoutFeedback onPress={handleJoin}>
-              <View
-                style={[
-                  styles.button,
-                  {
-                    backgroundColor: isJoined ? colors.primary : '#fff',
-                    borderWidth: isJoined ? 0 : 1,
-                    borderColor: '#ddd',
-                  },
-                ]}
-              >
-                <Text style={{ color: isJoined ? '#fff' : '#7C7C7C' }}>
-                  {isJoined ? t('JOINED') : t('JOIN')}
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
-          )}
+            ) : (
+              <TouchableWithoutFeedback onPress={handleJoin}>
+                <View
+                  style={[
+                    styles.button,
+                    {
+                      backgroundColor: isJoined ? colors.primary : '#fff',
+                      borderWidth: isJoined ? 0 : 1,
+                      borderColor: '#ddd',
+                    },
+                  ]}
+                >
+                  <Text style={{ color: isJoined ? '#fff' : '#7C7C7C' }}>
+                    {isJoined ? t('JOINED') : t('JOIN')}
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
+            ))}
         </View>
 
         <View style={styles.line} />

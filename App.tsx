@@ -10,27 +10,12 @@ import { SnackbarProvider } from '@/contexts/snackbar';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
 import { Feather } from '@expo/vector-icons';
 import * as Permissions from 'expo-permissions';
-import LoginScreen from '@/screens/Auth/LoginScreen';
-import SignupScreen from '@/screens/Auth/SignupScreen';
-import ForgotPasswordScreen from '@/screens/Auth/ForgotPasswordScreen';
-import EmailSentScreen from '@/screens/Auth/EmailSentScreen';
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 
 import { decode, encode } from 'base-64';
 import AppNavigator from './navigation/AppNavigator';
 import '@/helpers/clearTimer';
 import './i18n';
-import { useTranslation } from 'react-i18next';
 import * as Sentry from 'sentry-expo';
-import { AuthStackParamList } from './types';
-
-const headerStyle = {
-  backgroundColor: '#fff',
-  shadowColor: 'transparent',
-  elevation: 0,
-};
 
 // Enable sentry in production
 if (!__DEV__) {
@@ -57,13 +42,10 @@ if (!global['atob']) {
   global['atob'] = decode;
 }
 
-const Stack = createStackNavigator<AuthStackParamList>();
-
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [userAuth, setUserAuth] = useState(null);
-  const { t } = useTranslation(['SIGN']);
 
   useEffect(() => {
     getLocationPermission();
@@ -73,6 +55,7 @@ export default function App(props) {
 
   function authenticateUser() {
     auth.onAuthStateChanged((user) => {
+      console.log({ user });
       setIsAuthenticating(false);
       setUserAuth(user);
     });
@@ -81,7 +64,7 @@ export default function App(props) {
   async function getLocationPermission() {
     const { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
-      alert('Please enable your location for the best experience!');
+      alert('Wahdapp requires your location in order to find prayers around you.');
     }
   }
 
@@ -104,47 +87,12 @@ export default function App(props) {
       <Root>
         <ActionSheetProvider>
           <Provider store={store}>
-            {!userAuth || !userAuth.emailVerified ? (
-              <NavigationContainer>
-                <Stack.Navigator initialRouteName="Login">
-                  <Stack.Screen
-                    name="Login"
-                    component={LoginScreen}
-                    options={{ headerShown: false, headerStyle }}
-                  />
-                  <Stack.Screen
-                    name="Signup"
-                    component={SignupScreen}
-                    options={{
-                      title: '',
-                      headerBackTitle: t('LOGIN'),
-                      headerStyle,
-                    }}
-                  />
-                  <Stack.Screen
-                    name="ForgotPassword"
-                    component={ForgotPasswordScreen}
-                    options={{
-                      title: '',
-                      headerBackTitle: t('LOGIN'),
-                      headerStyle,
-                    }}
-                  />
-                  <Stack.Screen
-                    name="EmailSent"
-                    component={EmailSentScreen}
-                    options={{ headerShown: false, headerStyle }}
-                  />
-                </Stack.Navigator>
-              </NavigationContainer>
-            ) : (
-              <View style={styles.container}>
-                {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-                <Provider store={store}>
-                  <AppNavigator user={userAuth} />
-                </Provider>
-              </View>
-            )}
+            <View style={styles.container}>
+              {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+              <Provider store={store}>
+                <AppNavigator user={userAuth} />
+              </Provider>
+            </View>
           </Provider>
         </ActionSheetProvider>
       </Root>

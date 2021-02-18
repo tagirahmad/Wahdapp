@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { BoldText, RoundButton, Loader, GenderBox } from '@/components';
@@ -15,12 +15,7 @@ import { logEvent } from 'expo-firebase-analytics';
 import useLogScreenView from '@/hooks/useLogScreenView';
 import i18n from 'i18next';
 
-type Props = {
-  setIsFirstOAuth: Dispatch<SetStateAction<boolean>>;
-  setUserDataFetched: Dispatch<SetStateAction<boolean>>;
-};
-
-function SelectGenderScreen({ setIsFirstOAuth, setUserDataFetched }: Props) {
+function SelectGenderScreen() {
   useLogScreenView('select_gender');
   const [isCreating, setIsCreating] = useState(false);
   const [gender, setGender] = useState('');
@@ -55,9 +50,6 @@ function SelectGenderScreen({ setIsFirstOAuth, setUserDataFetched }: Props) {
       dispatch(setUser(user));
       dispatch(initializeFilter(gender));
       setIsCreating(false);
-
-      setIsFirstOAuth(false);
-      setUserDataFetched(true);
 
       await registerPushToken();
     } catch (e) {

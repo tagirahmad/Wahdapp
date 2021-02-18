@@ -33,6 +33,7 @@ import { getInvitedAmount, getParticipatedAmount } from '@/services/prayer';
 import { logEvent } from 'expo-firebase-analytics';
 import useLogScreenView from '@/hooks/useLogScreenView';
 import * as Device from 'expo-device';
+import SelectGenderScreen from '@/screens/Auth/SelectGenderScreen';
 
 type ProfileScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Profile'>;
 
@@ -191,6 +192,10 @@ export default function ProfileScreen({ navigation }: Props) {
         setErrorMessage('An error occurred. Please try again later.');
       }
     }
+  }
+
+  if (!user?.id) {
+    return <SelectGenderScreen />;
   }
 
   return (

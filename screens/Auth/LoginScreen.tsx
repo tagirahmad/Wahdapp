@@ -3,7 +3,7 @@ import { StyleSheet, View, Image, ScrollView, TextInput, Linking } from 'react-n
 import { useSnackbar } from '@/contexts/snackbar';
 import { Text, Touchable, BoldText, Loader, RoundButton } from '@/components';
 import { auth, signInWithFacebook, signInWithGoogle } from '@/firebase';
-import { FACEBOOK, GOOGLE, LOGO_WHITE } from '@/assets/images';
+import { APPLE, GOOGLE, LOGO_WHITE } from '@/assets/images';
 import { useTranslation } from 'react-i18next';
 import * as Animatable from 'react-native-animatable';
 import colors from '@/constants/colors';
@@ -86,6 +86,16 @@ export default function LoginScreen({ navigation: { navigate } }: Props) {
       displayError(e.message);
     }
   }
+
+  // async function handleApplePress() {
+  //   try {
+
+  //   } catch (e) {
+  //     logEvent('login', { status: 'failure', method: 'apple' });
+  //     // setLoading(false);
+  //     displayError(e.message);
+  //   }
+  // }
 
   if (loading) return <Loader />;
 
@@ -184,6 +194,22 @@ export default function LoginScreen({ navigation: { navigate } }: Props) {
                   source={GOOGLE}
                 />
                 <Text style={{ fontSize: 10, color: '#7F7F7F' }}>{t('GOOGLE_LOGIN')}</Text>
+              </View>
+            </Touchable>
+          </Animatable.View>
+
+          <Animatable.View
+            animation="bounceIn"
+            delay={2000}
+            style={{ ...styles.loginBtnContainer, width: '100%', marginTop: 15 }}
+          >
+            <Touchable onPress={handleGooglePress}>
+              <View style={styles.googleButton}>
+                <Image
+                  style={{ width: 20, height: 20, resizeMode: 'contain', marginRight: 15 }}
+                  source={APPLE}
+                />
+                <Text style={{ fontSize: 10, color: '#7F7F7F' }}>{t('APPLE_LOGIN')}</Text>
               </View>
             </Touchable>
           </Animatable.View>

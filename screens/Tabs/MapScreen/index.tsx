@@ -29,6 +29,8 @@ import { useDispatch } from 'react-redux';
 import { logEvent } from 'expo-firebase-analytics';
 import useLogScreenView from '@/hooks/useLogScreenView';
 import { getLatLong } from '@/helpers/geo';
+import { auth } from '@/firebase';
+import { useAuthStatus } from '@/hooks/auth';
 
 type FilteredMapQuery = Prayer & { geohash: string };
 type Region = {
@@ -43,6 +45,7 @@ type Props = {
 
 export default function MapScreen({ navigation }: Props) {
   useLogScreenView('map');
+  const isAuth = useAuthStatus();
   const user = useUserInfo();
   const { t } = useTranslation(['INVITATION']);
   const dispatch = useDispatch();
@@ -88,7 +91,7 @@ export default function MapScreen({ navigation }: Props) {
     if (userPosition && mapRef.current) {
       animateToRegion(userPosition);
     }
-  }, [mapRef]);
+  }, [userPosition, mapRef]);
 
   useEffect(() => {
     if (isChoosingRange && mapRef.current) {
@@ -196,7 +199,11 @@ export default function MapScreen({ navigation }: Props) {
     setIsQuerying(true);
 
     try {
-      const list = await queryMap({ lat: currentRegion.latitude, lng: currentRegion.longitude });
+      const list = await queryMap({
+        lat: currentRegion.latitude,
+        lng: currentRegion.longitude,
+        isAuth,
+      });
 
       dispatch({ type: 'SET_MAP', payload: list });
 
@@ -251,7 +258,7 @@ export default function MapScreen({ navigation }: Props) {
     setIsChoosingRange(false);
   }
 
-  if (showAreaSelectionTip) {
+  if (isAuth && showAreaSelectionTip) {
     return <GetNotified setTip={setTip} />;
   }
 
@@ -364,13 +371,14 @@ export default function MapScreen({ navigation }: Props) {
             />
           ))}
       </MapView>
-      {!isChoosingRange && (
+      {isAuth && !isChoosingRange && (
         <TouchableOpacity style={styles.notificationBtn} onPress={handleNotificationBtnPress}>
           <Feather name="bell" size={30} color="#7C7C7C" />
         </TouchableOpacity>
       )}
 
-      {!isChoosingRange &&
+      {isAuth &&
+        !isChoosingRange &&
         (selectedLocation ? (
           <TouchableOpacity style={styles.removeMarkerBtn} onPress={removeMarker}>
             <Feather name="x" size={30} color="#7C7C7C" />

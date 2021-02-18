@@ -11,10 +11,13 @@ import SkeletonContent from 'react-native-skeleton-content';
 import { SCALE } from '@/helpers/animation';
 import { Prayer } from '@/types';
 import { useLocation } from '@/hooks/redux';
+import { useAuthStatus } from '@/hooks/auth';
+import { auth } from '@/firebase';
 
 type Props = Prayer & { navigate: any; query?: () => void };
 
 export default function PrayerCard({ navigate, ...props }: Props) {
+  const isAuth = useAuthStatus();
   const { t } = useTranslation('COMMON');
   const locationState = useLocation();
 
@@ -69,7 +72,10 @@ export default function PrayerCard({ navigate, ...props }: Props) {
   }
 
   function handleCardPress() {
-    navigate('PrayerDetail', props);
+    // only allow logged users to view in details
+    if (isAuth) {
+      navigate('PrayerDetail', props);
+    }
   }
 
   return (

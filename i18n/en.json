@@ -114,6 +114,7 @@
     "BACK_TO_LOGIN": "BACK TO LOGIN",
     "SUBMIT": "SUBMIT",
     "GOOGLE_LOGIN": "Continue With Google",
+    "APPLE_LOGIN": "Continue With Apple",
     "FACEBOOK_LOGIN": "Continue With Facebook",
     "CHOOSE_GENDER": "Please choose your gender",
     "ERROR": [

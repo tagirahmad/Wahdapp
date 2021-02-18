@@ -17,6 +17,12 @@ import InvitedScreen from '@/screens/Profile/InvitedScreen';
 import ParticipatedScreen from '@/screens/Profile/ParticipatedScreen';
 import LanguageScreen from '@/screens/Profile/LanguageScreen';
 
+// Auth
+import LoginScreen from '@/screens/Auth/LoginScreen';
+import SignupScreen from '@/screens/Auth/SignupScreen';
+import ForgotPasswordScreen from '@/screens/Auth/ForgotPasswordScreen';
+import EmailSentScreen from '@/screens/Auth/EmailSentScreen';
+
 // Tabs
 import HomeScreen from '@/screens/Tabs/HomeScreen';
 import MapScreen from '@/screens/Tabs/MapScreen';
@@ -30,6 +36,13 @@ import { Text } from '@/components';
 import { MAN_AVATAR, WOMAN_AVATAR } from '@/assets/images';
 import { RootStackParamList } from '@/types';
 import { useUserInfo } from '@/hooks/redux';
+import { auth } from '@/firebase';
+
+const headerStyle = {
+  backgroundColor: '#fff',
+  shadowColor: 'transparent',
+  elevation: 0,
+};
 
 const Stack = createStackNavigator<RootStackParamList>();
 const headerOptions = {
@@ -94,6 +107,42 @@ function PrayerTimeStack() {
 //     </Stack.Navigator>
 //   );
 // }
+
+function AuthStack() {
+  const { t } = useTranslation(['SIGN']);
+  return (
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: false, headerStyle }}
+      />
+      <Stack.Screen
+        name="Signup"
+        component={SignupScreen}
+        options={{
+          title: '',
+          headerBackTitle: t('LOGIN'),
+          headerStyle,
+        }}
+      />
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPasswordScreen}
+        options={{
+          title: '',
+          headerBackTitle: t('LOGIN'),
+          headerStyle,
+        }}
+      />
+      <Stack.Screen
+        name="EmailSent"
+        component={EmailSentScreen}
+        options={{ headerShown: false, headerStyle }}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function ProfileStack() {
   const { t } = useTranslation(['PROFILE']);
@@ -176,19 +225,30 @@ function Tabs() {
           )
         }}
       /> */}
-      <Tab.Screen
-        name="Profile"
-        component={ProfileStack}
-        options={{
-          tabBarLabel: <Text style={{ fontSize: 14 }}>•</Text>,
-          tabBarIcon: () => (
-            <Image
-              source={user.gender === 'M' ? MAN_AVATAR : WOMAN_AVATAR}
-              style={{ width: 24, height: 24 }}
-            />
-          ),
-        }}
-      />
+      {auth.currentUser ? (
+        <Tab.Screen
+          name="Profile"
+          component={ProfileStack}
+          options={{
+            tabBarLabel: <Text style={{ fontSize: 14 }}>•</Text>,
+            tabBarIcon: () => (
+              <Image
+                source={user.gender === 'M' ? MAN_AVATAR : WOMAN_AVATAR}
+                style={{ width: 24, height: 24 }}
+              />
+            ),
+          }}
+        />
+      ) : (
+        <Tab.Screen
+          name="Auth"
+          component={AuthStack}
+          options={{
+            tabBarLabel: <Text style={{ fontSize: 14 }}>•</Text>,
+            tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="log-in" />,
+          }}
+        />
+      )}
     </Tab.Navigator>
   );
 }

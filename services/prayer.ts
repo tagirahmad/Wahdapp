@@ -25,6 +25,7 @@ type FeedQueryType = {
   timestamp?: string;
   sortType: 'distance' | 'participants' | 'time';
   pageNumber: number;
+  isAuth: boolean;
 };
 
 export async function queryFeed({
@@ -33,6 +34,7 @@ export async function queryFeed({
   timestamp = dayjs().format(),
   sortType = 'distance',
   pageNumber = 1,
+  isAuth,
 }: FeedQueryType) {
   try {
     let sortBy;
@@ -51,15 +53,20 @@ export async function queryFeed({
         sortBy = 'distance';
     }
 
-    const token = await auth.currentUser.getIdToken();
+    let headers;
+    if (isAuth) {
+      const token = await auth.currentUser.getIdToken();
+      headers = {
+        Authorization: `Token ${token}`,
+      };
+    }
+
     const { data } = await axios.get<{ data: Prayer[] }>(
       `${API_DOMAIN}/prayer/feed?lng=${lng}&lat=${lat}&timestamp=${encodeURIComponent(
         timestamp
       )}&sortBy=${sortBy}&pageNumber=${pageNumber}`,
       {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
+        headers,
       }
     );
 
@@ -69,15 +76,27 @@ export async function queryFeed({
   }
 }
 
-export async function queryMap({ lng, lat }) {
+export async function queryMap({
+  lng,
+  lat,
+  isAuth,
+}: {
+  lng: number;
+  lat: number;
+  isAuth: boolean;
+}) {
   try {
-    const token = await auth.currentUser.getIdToken();
+    let headers;
+    if (isAuth) {
+      const token = await auth.currentUser.getIdToken();
+      headers = {
+        Authorization: `Token ${token}`,
+      };
+    }
     const { data } = await axios.get<{ data: Prayer[] }>(
       `${API_DOMAIN}/prayer/map?lng=${lng}&lat=${lat}`,
       {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
+        headers,
       }
     );
 

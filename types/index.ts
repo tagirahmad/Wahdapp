@@ -14,6 +14,10 @@ export type RootStackParamList = {
   Participated: undefined;
   Language: undefined;
   Contact: undefined;
+  EmailSent: undefined;
+  ForgotPassword: undefined;
+  Login: undefined;
+  Signup: undefined;
 
   Tabs: undefined;
   PrayerDetail: Prayer;

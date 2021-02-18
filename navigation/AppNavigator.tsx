@@ -8,7 +8,6 @@ import { setUser } from '@/actions/user';
 import { setFilter } from '@/actions/filter';
 import { setNotificationRedirect } from '@/actions/notifications';
 import { Loader } from '@/components';
-import SelectGenderScreen from '@/screens/Auth/SelectGenderScreen';
 import MainTabNavigator from './MainTabNavigator';
 import { Notifications } from 'expo';
 import { getUserInfo } from '@/services/user';
@@ -19,7 +18,6 @@ import { Notification } from 'expo/build/Notifications/Notifications.types';
 
 export default ({ user }) => {
   const [userDataFetched, setUserDataFetched] = useState(false);
-  const [isFirstOAuth, setIsFirstOAuth] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,6 +31,24 @@ export default ({ user }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      (async () => {
+        try {
+          const userInfo = await getUserInfo(user.uid);
+
+          initLanguage(userInfo.locale);
+          setUserDataFetched(true);
+          dispatch(setUser(userInfo));
+        } catch (e) {
+          console.log(e);
+        }
+      })();
+    } else {
+      setUserDataFetched(true);
+    }
+  }, [user]);
+
   async function init() {
     // get user location
     try {
@@ -42,31 +58,17 @@ export default ({ user }) => {
       dispatch(setLocation({ latitude: 0, longitude: 0 }));
     }
 
-    setInterval(async () => {
-      // update user's current position every 30 seconds
-      try {
-        const location = await getLatLong();
-        dispatch(setLocation(location));
-      } catch (e) {
-        dispatch(setLocation({ latitude: 0, longitude: 0 }));
-      }
-    }, 30 * 1000);
+    // setInterval(async () => {
+    //   // update user's current position every 30 seconds
+    //   try {
+    //     const location = await getLatLong();
+    //     dispatch(setLocation(location));
+    //   } catch (e) {
+    //     dispatch(setLocation({ latitude: 0, longitude: 0 }));
+    //   }
+    // }, 30 * 1000);
 
     await initFilter();
-
-    try {
-      // Get user general info
-      const userInfo = await getUserInfo(user.uid);
-
-      initLanguage(userInfo.locale);
-      setIsFirstOAuth(false);
-      setUserDataFetched(true);
-      dispatch(setUser(userInfo));
-    } catch (e) {
-      // The user just signed in with OAuth
-      // Let the user choose his/her gender then create a new document into the database
-      setIsFirstOAuth(true);
-    }
   }
 
   async function initLanguage(locale: string) {
@@ -98,15 +100,6 @@ export default ({ user }) => {
     //   "remote": true,
     //   "userText": null,
     // },
-  }
-
-  if (isFirstOAuth) {
-    return (
-      <SelectGenderScreen
-        setIsFirstOAuth={setIsFirstOAuth}
-        setUserDataFetched={setUserDataFetched}
-      />
-    );
   }
 
   if (!userDataFetched) {

@@ -19,6 +19,7 @@ export const BALLOON = require('./balloon.png');
 
 export const FACEBOOK = require('./facebook.jpg');
 export const GOOGLE = require('./google.jpg');
+export const APPLE = require('./apple.png');
 
 export const PRAYER_TIME_BG = require('./prayer_time_bg.jpg');
 
