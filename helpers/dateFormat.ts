@@ -5,6 +5,7 @@ import 'dayjs/locale/id';
 import 'dayjs/locale/fr';
 import 'dayjs/locale/tr';
 import 'dayjs/locale/ar';
+import 'dayjs/locale/ru';
 import { auth } from '@/firebase';
 import { TFunction } from 'i18next';
 
@@ -49,6 +50,9 @@ export function formatLanguage(language: string) {
       dayjs.locale('fr');
       auth.languageCode = 'fr-FR';
       break;
+    case 'ru':
+      dayjs.locale('ru');
+      auth.languageCode = 'ru-RU';
     case 'tr':
       dayjs.locale('tr');
       auth.languageCode = 'tr-TR';

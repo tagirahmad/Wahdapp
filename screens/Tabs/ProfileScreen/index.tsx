@@ -98,6 +98,9 @@ export default function ProfileScreen({ navigation }: Props) {
       case 'ar':
         subpath = '/ar';
         break;
+      case 'ru':
+        subpath = '/ru';
+        break;
       case 'tr':
         subpath = '/tr';
         break;

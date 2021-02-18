@@ -8,6 +8,7 @@ import id from './id.json';
 import fr from './fr.json';
 import tr from './tr.json';
 import ar from './ar.json';
+import ru from './ru.json';
 import parseLanguage from './parse';
 
 const resources = {
@@ -17,8 +18,8 @@ const resources = {
   id,
   fr,
   tr,
-  ar, //ar
-  ru: en, //ru
+  ar,
+  ru,
   az: en, //az
   ms: en, //ms
 };

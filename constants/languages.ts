@@ -16,6 +16,10 @@ export const languages = [
     label: 'Bahasa Indonesia',
   },
   {
+    code: 'ru',
+    label: 'Русский',
+  },
+  {
     code: 'tr',
     label: 'Türkçe',
   },
