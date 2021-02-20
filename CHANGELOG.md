@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/aboudicheng/Jamaat/compare/v0.2.1...v0.2.2) (2021-02-20)
+
+
+### Bug Fixes
+
+* **auth:** handle user exception ([351b602](https://github.com/aboudicheng/Jamaat/commit/351b602e69a4e5b91de53e0d4fb14130106c19a5))
+
 ### [0.2.1](https://github.com/aboudicheng/Jamaat/compare/v0.2.0...v0.2.1) (2021-02-19)
 
 
