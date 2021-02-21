@@ -10,7 +10,7 @@ import { setNotificationRedirect } from '@/actions/notifications';
 import { Loader } from '@/components';
 import MainTabNavigator from './MainTabNavigator';
 import { Notifications } from 'expo';
-import { getUserInfo } from '@/services/user';
+import { getUserInfo, updateLocale } from '@/services/user';
 import { getPrayerByID } from '@/services/prayer';
 import i18n from 'i18next';
 import { formatLanguage } from '@/helpers/dateFormat';
@@ -37,7 +37,9 @@ export default function AppNavigator({ user, position }) {
         try {
           const userInfo = await getUserInfo(user.uid);
 
-          initLanguage(userInfo.locale);
+          if (userInfo.locale !== i18n.language) {
+            updateLocale(i18n.language);
+          }
           setUserDataFetched(true);
           dispatch(setUser(userInfo));
         } catch (e) {

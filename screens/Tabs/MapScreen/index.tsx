@@ -269,20 +269,24 @@ export default function MapScreen({ navigation }: Props) {
   async function handleNotificationBtnPress() {
     try {
       await askPermissions();
+      setIsChoosingRange(true);
       const token = await Notifications.getExpoPushTokenAsync();
       await registerToken(token);
-      setIsChoosingRange(true);
     } catch (e) {
       guideToSettings();
     }
   }
 
   async function confirmNotificationRange() {
+    try {
     const region = { lat: notifyLocation.latitude, lng: notifyLocation.longitude };
     await updateUserLocation(region);
     dispatch(setNotifyRegion(region));
 
     setIsChoosingRange(false);
+    } catch (e) {
+      setIsChoosingRange(false);
+    }
   }
 
   if (isAuth && showAreaSelectionTip && !hasSeenGetNotified) {
@@ -412,7 +416,7 @@ export default function MapScreen({ navigation }: Props) {
           </TouchableOpacity>
         ) : (
           <TouchableOpacity style={styles.floatingBtn} onPress={handleFloatBtnClick}>
-            <Feather name="map-pin" size={30} color="#ffffff" />
+            <Feather name="plus" size={30} color="#ffffff" />
           </TouchableOpacity>
         ))}
 
@@ -582,3 +586,4 @@ function Dot({ coordinate, onPress, color = colors.primary }) {
     </Marker>
   );
 }
+>

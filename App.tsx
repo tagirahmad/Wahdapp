@@ -17,6 +17,7 @@ import '@/helpers/clearTimer';
 import './i18n';
 import * as Sentry from 'sentry-expo';
 import { getLatLong } from './helpers/geo';
+import { askPermissions, guideToSettings } from './helpers/permission';
 
 // Enable sentry in production
 if (!__DEV__) {
@@ -50,8 +51,11 @@ export default function App(props) {
   const [position, setPosition] = useState(null);
 
   useEffect(() => {
-    getLocationPermission();
-    getNotificationPermission();
+    try {
+      askPermissions();
+    } catch (e) {
+      guideToSettings();
+    }
     authenticateUser();
   }, []);
 
@@ -60,17 +64,6 @@ export default function App(props) {
       setIsAuthenticating(false);
       setUserAuth(user);
     });
-  }
-
-  async function getLocationPermission() {
-    const { status } = await Permissions.askAsync(Permissions.LOCATION);
-    if (status !== 'granted') {
-      alert('Wahdapp requires your location in order to find prayers around you.');
-    }
-  }
-
-  async function getNotificationPermission() {
-    await Permissions.askAsync(Permissions.NOTIFICATIONS);
   }
 
   async function loadResourcesAsync() {
