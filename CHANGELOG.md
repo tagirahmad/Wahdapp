@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.5](https://github.com/aboudicheng/Jamaat/compare/v0.2.4...v0.2.5) (2021-02-22)
+
+
+### Bug Fixes
+
+* typo ([44e774a](https://github.com/aboudicheng/Jamaat/commit/44e774a9d12fabb5e49985acab8c0237c1f18132))
+* **auth:** cancel loading after failed api call ([f96a2ec](https://github.com/aboudicheng/Jamaat/commit/f96a2ec5e2c926d8b6eb2064e22f350f6d578dfc))
+* **i18n:** typo in indonesian ([aeb544a](https://github.com/aboudicheng/Jamaat/commit/aeb544ab0b04d62ddfaa5e897f93f1ab50d5b44c))
+
 ### [0.2.4](https://github.com/aboudicheng/Jamaat/compare/v0.2.3...v0.2.4) (2021-02-21)
 
 
