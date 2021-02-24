@@ -36,7 +36,7 @@ import { Text } from '@/components';
 import { MAN_AVATAR, WOMAN_AVATAR } from '@/assets/images';
 import { RootStackParamList } from '@/types';
 import { useUserInfo } from '@/hooks/redux';
-import { auth } from '@/firebase';
+import { useAuthStatus } from '@/hooks/auth';
 
 const headerStyle = {
   backgroundColor: '#fff',
@@ -181,6 +181,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 function Tabs() {
   const user = useUserInfo();
+  const isAuth = useAuthStatus();
 
   return (
     <Tab.Navigator
@@ -225,7 +226,7 @@ function Tabs() {
           )
         }}
       /> */}
-      {auth.currentUser ? (
+      {isAuth ? (
         <Tab.Screen
           name="Profile"
           component={ProfileStack}

@@ -268,7 +268,15 @@ export default function MapScreen({ navigation }: Props) {
 
   async function handleNotificationBtnPress() {
     try {
-      await askPermissions();
+      // this feature only requires the notification permission and not the location permission
+      // thus not using askPermissions()
+
+      const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+
+      if (status !== 'granted') {
+        throw new Error('Notification not granted');
+      }
+
       setIsChoosingRange(true);
       const token = await Notifications.getExpoPushTokenAsync();
       await registerToken(token);

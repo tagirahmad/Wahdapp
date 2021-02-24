@@ -23,10 +23,14 @@ function SelectGenderScreen() {
   const { t } = useTranslation(['SIGN', 'COMMON']);
 
   async function registerPushToken() {
-    const token = await Notifications.getExpoPushTokenAsync();
-    await registerToken(token);
+    try {
+      const token = await Notifications.getExpoPushTokenAsync();
+      await registerToken(token);
 
-    dispatch(setDeviceToken(token));
+      dispatch(setDeviceToken(token));
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async function chooseGender() {
@@ -52,7 +56,7 @@ function SelectGenderScreen() {
       dispatch(initializeFilter(gender));
       setIsCreating(false);
 
-      await registerPushToken();
+      registerPushToken();
     } catch (e) {
       setIsCreating(false);
     }

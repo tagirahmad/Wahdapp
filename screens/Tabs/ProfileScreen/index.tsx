@@ -197,10 +197,6 @@ export default function ProfileScreen({ navigation }: Props) {
     }
   }
 
-  if (!user?.email?.length) {
-    return <SelectGenderScreen />;
-  }
-
   return (
     <>
       <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>

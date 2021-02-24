@@ -17,6 +17,8 @@ import { logEvent } from 'expo-firebase-analytics';
 import useLogScreenView from '@/hooks/useLogScreenView';
 import firebase from 'firebase/app';
 import * as AppleAuthentication from 'expo-apple-authentication';
+import SelectGenderScreen from './SelectGenderScreen';
+import { useUserInfo } from '@/hooks/redux';
 
 type LoginScreenNavigationProp = StackNavigationProp<AuthStackParamList, 'Login'>;
 
@@ -29,6 +31,7 @@ export default function LoginScreen({ navigation: { navigate } }: Props) {
   const { t } = useTranslation(['SIGN', 'PROFILE']);
   const dispatch = useDispatch();
   const [, setErrorMessage] = useSnackbar();
+  const user = useUserInfo();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -115,6 +118,10 @@ export default function LoginScreen({ navigation: { navigate } }: Props) {
       // setLoading(false);
       displayError(e.message);
     }
+  }
+
+  if (auth.currentUser && !user?.email?.length) {
+    return <SelectGenderScreen />;
   }
 
   if (loading) return <Loader />;
