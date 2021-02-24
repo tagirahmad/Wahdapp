@@ -83,7 +83,7 @@ export default function LoginScreen({ navigation: { navigate } }: Props) {
     try {
       // setLoading(true);
       await signInWithGoogle();
-      await registerPushToken();
+      registerPushToken();
       logEvent('login', { status: 'success', method: 'google' });
     } catch (e) {
       logEvent('login', { status: 'failure', method: 'google' });
@@ -110,7 +110,7 @@ export default function LoginScreen({ navigation: { navigate } }: Props) {
         });
 
         await auth.signInWithCredential(credential);
-        await registerPushToken();
+        registerPushToken();
       }
     } catch (e) {
       console.log(e);
