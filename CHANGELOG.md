@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.2](https://github.com/aboudicheng/Jamaat/compare/v0.3.1...v0.3.2) (2021-03-02)
+
+
+### Bug Fixes
+
+* **map:** hide location button ([0581439](https://github.com/aboudicheng/Jamaat/commit/0581439cb96af5cd2b0d2f76bc69dbd6c9b69843))
+
 ### [0.3.1](https://github.com/aboudicheng/Jamaat/compare/v0.3.0...v0.3.1) (2021-03-01)
 
 
