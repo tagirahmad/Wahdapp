@@ -98,6 +98,9 @@ export default function HomeScreen({ navigation }: Props) {
         dispatch({ type: 'SET_FEED', payload: [] });
         console.log(e);
       }
+    } else {
+      setIsFetching(false);
+      setHasMore(false);
     }
   }
 
