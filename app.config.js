@@ -16,7 +16,7 @@ export default ({ config }) => {
     ...config,
     "android": {
       ...config.android,
-      "package": "com.aboudicheng.wahdapp",
+      "package": process.env.ENV === 'staging' ? "com.staging.wahdapp" : "com.aboudicheng.wahdapp",
       "config": {
         "googleMaps": {
           "apiKey": process.env.ANDROID_GOOGLE_MAPS_API_KEY
@@ -42,7 +42,7 @@ export default ({ config }) => {
     },
     "ios": {
       ...config.ios,
-      "bundleIdentifier": "com.aboudicheng.wahdapp",
+      "bundleIdentifier": process.env.ENV === 'staging' ? "com.staging.wahdapp" : "com.aboudicheng.wahdapp",
       "supportsTablet": true,
       "usesAppleSignIn": true,
       "googleServicesFile": "./GoogleService-Info.plist",
