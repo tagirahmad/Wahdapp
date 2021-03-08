@@ -421,6 +421,7 @@ const styles = StyleSheet.create({
   sectionSubHeader: {
     fontSize: 12,
     color: '#7C7C7C',
+    lineHeight: 22,
   },
   line: {
     height: 1,

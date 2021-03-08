@@ -524,5 +524,6 @@ const styles = StyleSheet.create({
     height: 150,
     justifyContent: 'flex-start',
     fontSize: 12,
+    lineHeight: 22,
   },
 });
