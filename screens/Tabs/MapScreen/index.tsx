@@ -79,20 +79,15 @@ export default function MapScreen({ navigation }: Props) {
 
   useEffect(() => {
     (async () => {
-      try {
-        await askPermissions();
-
-        if (!notifyLocation) {
-          try {
-            const position = await getLatLong();
-            setNotifyLocation(position);
-          } catch (e) {
-            console.log(e);
-            setNotifyLocation({ latitude: 0, longitude: 0 });
-          }
+      if (!notifyLocation) {
+        try {
+          const position = await getLatLong();
+          setNotifyLocation(position);
+        } catch (e) {
+          console.log(e);
+          guideToSettings();
+          setNotifyLocation({ latitude: 0, longitude: 0 });
         }
-      } catch (e) {
-        guideToSettings();
       }
     })();
   }, []);
@@ -277,17 +272,18 @@ export default function MapScreen({ navigation }: Props) {
       // this feature only requires the notification permission and not the location permission
       // thus not using askPermissions()
 
-      const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+      // const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
 
-      if (status !== 'granted') {
-        throw new Error('Notification not granted');
-      }
+      // if (status !== 'granted') {
+      //   throw new Error('Notification not granted');
+      // }
 
       setIsChoosingRange(true);
       const token = await Notifications.getExpoPushTokenAsync();
-      await registerToken(token);
+      registerToken(token);
     } catch (e) {
       guideToSettings();
+      setIsChoosingRange(false);
     }
   }
 

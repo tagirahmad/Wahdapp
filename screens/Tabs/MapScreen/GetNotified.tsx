@@ -33,25 +33,20 @@ const GetNotified: React.FC<Props> = ({ setTip }) => {
   }, []);
 
   async function verifyPermissions() {
-    try {
-      await askPermissions();
-
-      // register device token if the user previously denied permission
-      if (!user.device_token) {
-        try {
-          const token = await Notifications.getExpoPushTokenAsync();
-          await registerToken(token);
-          dispatch(setDeviceToken(token));
-        } catch (e) {
-          console.log('Error occurred while registering device token');
-          setTip(false);
-        }
+    // register device token if the user previously denied permission
+    if (!user.device_token) {
+      try {
+        const token = await Notifications.getExpoPushTokenAsync();
+        registerToken(token);
+        dispatch(setDeviceToken(token));
+      } catch (e) {
+        console.log('Error occurred while registering device token');
+        guideToSettings();
+        setTip(false);
       }
-      // let user choose area to be notified
-      setTip(true);
-    } catch (e) {
-      guideToSettings();
     }
+    // let user choose area to be notified
+    setTip(true);
   }
   return (
     <>

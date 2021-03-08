@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { AsyncStorage } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
-import { getLatLong } from '../helpers/geo';
 import { setLocation } from '@/actions/location';
 import { setUser } from '@/actions/user';
 import { setFilter } from '@/actions/filter';

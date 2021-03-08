@@ -33,6 +33,7 @@ import { cancelPrayer } from '@/actions/prayers';
 import { addParticipatedAmount, minusInvitedAmount, minusParticipatedAmount } from '@/actions/user';
 import useLogScreenView from '@/hooks/useLogScreenView';
 import { useAuthStatus } from '@/hooks/auth';
+import isEmpty from 'lodash/isEmpty';
 
 type PrayerDetailScreenNavigationProp = StackNavigationProp<RootStackParamList, 'PrayerDetail'>;
 
@@ -277,7 +278,9 @@ export default function PrayerDetailScreen({ route, navigation }: Props) {
             <BoldText style={styles.sectionHeader}>{`${dayjs(schedule_time).format(
               'MMM DD'
             )}\n${dayjs(schedule_time).format('hh:mm A')}`}</BoldText>
-            <Text style={styles.sectionSubHeader}>{formatDistance(distance, t)}</Text>
+            {!isEmpty(locationState) && (
+              <Text style={styles.sectionSubHeader}>{formatDistance(distance, t)}</Text>
+            )}
           </View>
 
           {isAuth &&
